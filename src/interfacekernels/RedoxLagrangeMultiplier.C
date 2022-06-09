@@ -6,10 +6,9 @@ InputParameters
 Redox::validParams()
 {
   InputParameters params = ADInterfaceKernel::validParams();
-  params.addClassDescription(
-      "The Butler-Volmer condition across the electrode/electrolyte interface");
-  params.addRequiredCoupledVar("lagrange_multiplier",
-                               "The Lagrange multiplier to enforce this interface condition");
+  params.addClassDescription("The Lagrange multiplier for the Butler-Volmer condition across the "
+                             "electrode/electrolyte interface");
+  params.addRequiredCoupledVar("electric_potential", "The electric potential");
   params.addRequiredParam<Real>("exchange_current_density",
                                 "The exchange current density (normal to the interface) for the "
                                 "electrode/electrolyte interface");
@@ -30,8 +29,8 @@ Redox::validParams()
 
 Redox::Redox(const InputParameters & parameters)
   : ADInterfaceKernel(parameters),
-    _lm(adCoupledValue("lagrange_multiplier")),
-    _lm_neighbor(adCoupledNeighborValue("lagrange_multiplier")),
+    _Phi(adCoupledValue("lagrange_multiplier")),
+    _Phi_neighbor(adCoupledNeighborValue("lagrange_multiplier")),
     _i0(getParam<Real>("exchange_current_density")),
     _alpha_a(getParam<Real>("anodic_charge_transfer_coefficient")),
     _alpha_c(getParam<Real>("cathodic_charge_transfer_coefficient")),

@@ -2,18 +2,15 @@
 
 #include "ADInterfaceKernel.h"
 
-class Redox : public ADInterfaceKernel
+class RedoxLagrangeMultiplier : public ADInterfaceKernel
 {
 public:
   static InputParameters validParams();
 
-  Redox(const InputParameters & parameters);
+  RedoxLagrangeMultiplier(const InputParameters & parameters);
 
 protected:
   virtual ADReal computeQpResidual(Moose::DGResidualType type) override;
-
-  const ADVariableValue & _lm;
-  const ADVariableValue & _lm_neighbor;
 
   const Real _i0;
 
@@ -26,6 +23,8 @@ protected:
 
   const ADVariableValue & _T;
   const ADVariableValue & _T_neighbor;
+
+  const Real _penalty;
 
   const SubdomainID _electrode_subdomain_id;
   const SubdomainID _electrolyte_subdomain_id;

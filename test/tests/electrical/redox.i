@@ -38,6 +38,11 @@
     input = electrolyte
     interface_name = interface
   []
+  [lower_D_block]
+    type = LowerDBlockFromSidesetGenerator
+    input = interface
+    sidesets = interface
+  []
 []
 
 [Variables]
