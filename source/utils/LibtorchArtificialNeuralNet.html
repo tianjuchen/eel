@@ -1,0 +1,182 @@
+<!DOCTYPE html><head><meta charset="UTF-8"><title>LibtorchArtificialNeuralNet | Stingray</title><link href="../../contrib/materialize/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"></link><link href="../../contrib/prism/prism.min.css" type="text/css" rel="stylesheet"></link><link href="../../css/moose.css" type="text/css" rel="stylesheet"></link><link href="../../css/devel_moose.css" type="text/css" rel="stylesheet"></link><link href="../../css/alert_moose.css" type="text/css" rel="stylesheet"></link><link href="../../css/content_moose.css" type="text/css" rel="stylesheet"></link><link href="../../css/sqa_moose.css" type="text/css" rel="stylesheet"></link><link href="../../css/civet_moose.css" type="text/css" rel="stylesheet"></link><link href="../../contrib/katex/katex.min.css" type="text/css" rel="stylesheet"></link><link href="../../css/katex_moose.css" type="text/css" rel="stylesheet"></link><script type="text/javascript" src="../../contrib/jquery/jquery.min.js"></script><script type="text/javascript" src="../../contrib/katex/katex.min.js"></script></head><body><div class="page-wrap"><header><nav><div class="nav-wrapper container"><a href="../../index.html" class="left moose-logo hide-on-med-and-down" id="home-button">Stingray</a><a href="https://github.com/hugary1995/stingray" class="right"><img src="../../media/framework/github-logo.png" class="github-mark"></img><img src="../../media/framework/github-mark.png" class="github-logo"></img></a><ul class="right hide-on-med-and-down"><li><a href="../../theory.html">Theory</a></li><li><a href="../../implementation.html">Implementation</a></li><li><a href="../../examples.html">Examples</a></li><li><a href="../../stingray.html">Documentation</a></li></ul><a href="#" class="sidenav-trigger" data-target="b82db538-d154-49e3-9f95-edb6e200a39a"><i class="material-icons">menu</i></a><ul class="sidenav" id="b82db538-d154-49e3-9f95-edb6e200a39a"><li><a href="../../theory.html">Theory</a></li><li><a href="../../implementation.html">Implementation</a></li><li><a href="../../examples.html">Examples</a></li><li><a href="../../stingray.html">Documentation</a></li></ul><a href="#moose-search" class="modal-trigger"><i class="material-icons">search</i></a></div></nav><div class="modal modal-fixed-footer moose-search-modal" id="moose-search"><div class="modal-content container moose-search-modal-content"><div class="row"><div class="col l12"><div class="input-field"><input type_="text" onkeyup="mooseSearch()" placeholder="/index.md" id="moose-search-box"></input></div></div><div><div class="col s12" id="moose-search-results"></div></div></div></div><div class="modal-footer"><a href="#!" class="modal-close btn-flat">Close</a></div></div></header><main class="main"><div class="container"><div class="row"><div class="col hide-on-med-and-down l12"><nav class="breadcrumb-nav"><div class="nav-wrapper"><a href=".." class="breadcrumb">source</a><span class="breadcrumb">utils</span><a href="#" class="breadcrumb">LibtorchArtificialNeuralNet</a></div></nav></div></div><div class="row"><div class="moose-content col s12 m12 l10"><section id="f779db4e-7d69-4e2c-9c1e-c9b652c8a0fc" data-section-level="1" data-section-text="LibtorchArtificialNeuralNet"><h1 id="libtorchartificialneuralnet">LibtorchArtificialNeuralNet</h1><section class="scrollspy" id="e85e8fa9-6c1f-4a47-961b-4170fe266edc" data-section-level="2" data-section-text="Overview"><h2 id="overview">Overview</h2><p>This class can be used to generate a simple, feedforward artificial neural network (ANN) using the underlying objects imported from <code>libtorch</code> (C++ API of <code>pytorch</code>). <strong>Note: to be able to use these capabilities, MOOSE needs to be installed with libtorch support.</strong> For more information, visit the installation instuctions on the MOOSE website. For a more detailed introduction to neural networks, we refer the reader to <a href="#muller1995neural">Müller et al. (1995)</a>. The architecture of a simple feedforward neural network is presented below. The first layer from the left to the right are referred to as input and output layers, while the layers between them are the hidden layers.</p><div class="card moose-float" style="width:65%;" id="structure"><div class="card-content"><picture class="materialboxed moose-image"><img src="../../large_media/stochastic_tools/surrogates/libtorch_nn/neural_net.png"></img></picture><p class="moose-caption"><span class="moose-caption-heading">Figure 1: </span><span class="moose-caption-text" id="structure">The architecture of the simple feedforward neural network in MOOSE-STM.</span></p></div></div><p>We see that the outputs (<span class="moose-katex-inline-equation" id="moose-equation-7304dcad-e249-4a90-8147-e53d675c08ff"><script>var element = document.getElementById("moose-equation-7304dcad-e249-4a90-8147-e53d675c08ff");katex.render("\\textbf{y}", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span>) of the neural net can be expressed as function of the inputs (<span class="moose-katex-inline-equation" id="moose-equation-a4a42b5c-2143-437a-af04-38401305c3c1"><script>var element = document.getElementById("moose-equation-a4a42b5c-2143-437a-af04-38401305c3c1");katex.render("\\textbf{x}", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span>) and the corresponding model parameters (weights <span class="moose-katex-inline-equation" id="moose-equation-e10aa5c9-e8b0-45a6-9f1c-d6239bb8ecaa"><script>var element = document.getElementById("moose-equation-e10aa5c9-e8b0-45a6-9f1c-d6239bb8ecaa");katex.render("w_{i,j}", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span>, organized in weight matrics <span class="moose-katex-inline-equation" id="moose-equation-65f86a0c-ae16-434e-934e-0c84421c48db"><script>var element = document.getElementById("moose-equation-65f86a0c-ae16-434e-934e-0c84421c48db");katex.render("\\textbf{W}", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span> and biases <span class="moose-katex-inline-equation" id="moose-equation-bc5e8848-fe38-4fd2-8627-460556eaa247"><script>var element = document.getElementById("moose-equation-bc5e8848-fe38-4fd2-8627-460556eaa247");katex.render("b_i", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span> organized in the bias vector <span class="moose-katex-inline-equation" id="moose-equation-e7a82289-c5c2-4c1e-9cb2-5278fb35ec06"><script>var element = document.getElementById("moose-equation-e7a82289-c5c2-4c1e-9cb2-5278fb35ec06");katex.render("\\textbf{b}", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span>) in the following nested form:</p><span class="moose-katex-block-equation"><span class="moose-katex-equation table-cell" id="moose-equation-b44fb878-933f-4eb4-9619-bc5645f44d4f"></span><span class="moose-katex-equation-number">(1)</span><script>var element = document.getElementById("moose-equation-b44fb878-933f-4eb4-9619-bc5645f44d4f");katex.render("\\textbf{y} = \\sigma(\\textbf{W}^{(3)}\\sigma(\\textbf{W}^{(2)}\\sigma(\\textbf{W}^{(1)}\\textbf{x}+\\textbf{b}^{(1)})+\\textbf{b}^{(2)})+\\textbf{b}^{(3)}),", element, {displayMode:true,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span><p>where <span class="moose-katex-inline-equation" id="moose-equation-adc24686-7614-4b7c-a33d-9915e018208f"><script>var element = document.getElementById("moose-equation-adc24686-7614-4b7c-a33d-9915e018208f");katex.render("\\sigma", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span> denotes the activation function. At the moment, the Moose implementation supports <code>relu</code>, <code>elu</code>, <code>gelu</code>, <code>sigmoid</code> and <code>linear</code> activation functions. In this class, no activation function is applied on the output layer. It is apparent that the real functional dependence (target function) between the inputs and outputs is approximated by the function in <a href="#moose-equation-b44fb878-933f-4eb4-9619-bc5645f44d4f">Eq. (1)</a>. As in most cases, the error in this approximation depends on the smoothness of the target function and the values of the model parameters. The weights and biases in the function are determined by minimizing the error between the approximate outputs of the neural net corresponding reference (training) values over a training set.</p></section><section class="scrollspy" id="9d94a8a9-8a3e-4870-a14e-cb4b8942d44e" data-section-level="2" data-section-text="Example usage"><h2 id="example-usage">Example usage</h2><p>To be able to use this neural network, we have to construct one using a name, the number of expected input and output neurons, an expected hideen-layer-structure and the activation functions for the layers. If no activation function is given, <code>relu</code> is used for every hidden neuron:</p><pre class="moose-pre" style="max-height:350px;"><code class="language-cpp">  // Define neurons per hidden layer: we will have two hidden layers with 4 neurons each
+  std::vector&lt;unsigned int&gt; num_neurons_per_layer({4, 4});
+  // Create the neural network with name &quot;test&quot;, number of input neurons = 3,
+  // number of output neurons = 1, and activation functions from the input file.
+  std::shared_ptr&lt;Moose::LibtorchArtificialNeuralNet&gt; nn =
+      std::make_shared&lt;Moose::LibtorchArtificialNeuralNet&gt;(
+          &quot;test&quot;,
+          3,
+          1,
+          num_neurons_per_layer,
+          getParam&lt;std::vector&lt;std::string&gt;&gt;(&quot;activation_functions&quot;));
+</code></pre><a class="moose-source-filename tooltipped modal-trigger" href="#b08620eb-3fc8-46d2-a2d6-b434f11a4294">(moose/test/src/utils/LibtorchArtificialNeuralNetTest.C)</a><p>For training a neural network, we need to initialize an optimizer (ADAM in this case), then supply known input-output combinations for the function-to-be-approximated and let the optimizer set the parameters of the neural network to ensure that the answer supplied by the neural network is as close to the supplied values as possible. Once step in this optimization process is shown below:</p><pre class="moose-pre" style="max-height:350px;"><code class="language-cpp">  // Create an Adam optimizer
+  torch::optim::Adam optimizer(nn-&gt;parameters(), torch::optim::AdamOptions(0.02));
+  // reset the gradients
+  optimizer.zero_grad();
+  // This is our test input
+  torch::Tensor input = at::ones({1, 3}, at::kDouble);
+  // This is our test output (we know the result)
+  torch::Tensor output = at::ones({1}, at::kDouble);
+  // This is our prediction for the test input
+  torch::Tensor prediction = nn-&gt;forward(input);
+  // We compute the loss
+  torch::Tensor loss = torch::mse_loss(prediction.reshape({prediction.size(0)}), output);
+  // We propagate the error back to compute gradient
+  loss.backward();
+  // We update the weights using the computed gradients
+  optimizer.step();
+</code></pre><a class="moose-source-filename tooltipped modal-trigger" href="#60205f39-2875-4694-b5c1-429afbf5c6a3">(moose/test/src/utils/LibtorchArtificialNeuralNetTest.C)</a><p>For more detailed instructions on training a neural network, visit the Stochastic Tools module! </p></section><section class="scrollspy" id="6f74468f-161d-4a95-8b56-2decc6992b30" data-section-level="2" data-section-text="References"><h2 id="references">References</h2><div class="moose-bibliography"><ol><li id="muller1995neural">Berndt M<span class="bibtex-protected">ü</span>ller, Joachim Reinhardt, and Michael&nbsp;T Strickland.
+<em>Neural networks: an introduction</em>.
+Springer Science &amp; Business Media, 1995.<a href="#076f4de3-d0b6-438b-ae4d-6807b12969de" class="modal-trigger moose-bibtex-modal" style="padding-left:10px;">[BibTeX]</a><div class="modal" id="076f4de3-d0b6-438b-ae4d-6807b12969de"><div class="modal-content"><pre style="line-height:1.25;"><code class="language-latex">@book{muller1995neural,
+    author = {M{\"u}ller, Berndt and Reinhardt, Joachim and Strickland, Michael T},
+    title = "Neural networks: an introduction",
+    year = "1995",
+    publisher = "Springer Science \\& Business Media"
+}
+</code></pre></div></div></li></ol></div></section></section><div class="moose-modal modal" id="b08620eb-3fc8-46d2-a2d6-b434f11a4294"><div class="modal-content"><h4>(moose/test/src/utils/LibtorchArtificialNeuralNetTest.C)</h4><pre class="moose-pre"><code class="language-cpp">// This file is part of the MOOSE framework
+// https://www.mooseframework.org
+//
+// All rights reserved, see COPYRIGHT for full restrictions
+// https://github.com/idaholab/moose/blob/master/COPYRIGHT
+//
+// Licensed under LGPL 2.1, please see LICENSE for details
+// https://www.gnu.org/licenses/lgpl-2.1.html
+
+#ifdef LIBTORCH_ENABLED
+#include &quot;LibtorchArtificialNeuralNet.h&quot;
+#include &lt;torch/torch.h&gt;
+#endif
+
+#include &quot;LibtorchArtificialNeuralNetTest.h&quot;
+#include &quot;ThreadedGeneralUserObject.h&quot;
+
+registerMooseObject(&quot;MooseTestApp&quot;, LibtorchArtificialNeuralNetTest);
+
+InputParameters
+LibtorchArtificialNeuralNetTest::validParams()
+{
+  InputParameters params = GeneralUserObject::validParams();
+
+  params.addParam&lt;std::vector&lt;std::string&gt;&gt;(
+      &quot;activation_functions&quot;, std::vector&lt;std::string&gt;({&quot;relu&quot;}), &quot;Test activation functions&quot;);
+
+  return params;
+}
+
+LibtorchArtificialNeuralNetTest::LibtorchArtificialNeuralNetTest(const InputParameters &amp; params)
+  : GeneralUserObject(params)
+{
+#ifdef LIBTORCH_ENABLED
+
+  torch::manual_seed(11);
+
+  // Define neurons per hidden layer: we will have two hidden layers with 4 neurons each
+  std::vector&lt;unsigned int&gt; num_neurons_per_layer({4, 4});
+  // Create the neural network with name &quot;test&quot;, number of input neurons = 3,
+  // number of output neurons = 1, and activation functions from the input file.
+  std::shared_ptr&lt;Moose::LibtorchArtificialNeuralNet&gt; nn =
+      std::make_shared&lt;Moose::LibtorchArtificialNeuralNet&gt;(
+          &quot;test&quot;,
+          3,
+          1,
+          num_neurons_per_layer,
+          getParam&lt;std::vector&lt;std::string&gt;&gt;(&quot;activation_functions&quot;));
+
+  // Create an Adam optimizer
+  torch::optim::Adam optimizer(nn-&gt;parameters(), torch::optim::AdamOptions(0.02));
+  // reset the gradients
+  optimizer.zero_grad();
+  // This is our test input
+  torch::Tensor input = at::ones({1, 3}, at::kDouble);
+  // This is our test output (we know the result)
+  torch::Tensor output = at::ones({1}, at::kDouble);
+  // This is our prediction for the test input
+  torch::Tensor prediction = nn-&gt;forward(input);
+  // We compute the loss
+  torch::Tensor loss = torch::mse_loss(prediction.reshape({prediction.size(0)}), output);
+  // We propagate the error back to compute gradient
+  loss.backward();
+  // We update the weights using the computed gradients
+  optimizer.step();
+
+  optimizer.zero_grad();
+  prediction = nn-&gt;forward(input);
+
+  _console &lt;&lt; &quot;My prediction: &quot; &lt;&lt; prediction &lt;&lt; std::endl;
+
+#endif
+}
+</code></pre></div><div class="modal-footer"><a class="modal-close btn-flat">Close</a></div></div><div class="moose-modal modal" id="60205f39-2875-4694-b5c1-429afbf5c6a3"><div class="modal-content"><h4>(moose/test/src/utils/LibtorchArtificialNeuralNetTest.C)</h4><pre class="moose-pre"><code class="language-cpp">// This file is part of the MOOSE framework
+// https://www.mooseframework.org
+//
+// All rights reserved, see COPYRIGHT for full restrictions
+// https://github.com/idaholab/moose/blob/master/COPYRIGHT
+//
+// Licensed under LGPL 2.1, please see LICENSE for details
+// https://www.gnu.org/licenses/lgpl-2.1.html
+
+#ifdef LIBTORCH_ENABLED
+#include &quot;LibtorchArtificialNeuralNet.h&quot;
+#include &lt;torch/torch.h&gt;
+#endif
+
+#include &quot;LibtorchArtificialNeuralNetTest.h&quot;
+#include &quot;ThreadedGeneralUserObject.h&quot;
+
+registerMooseObject(&quot;MooseTestApp&quot;, LibtorchArtificialNeuralNetTest);
+
+InputParameters
+LibtorchArtificialNeuralNetTest::validParams()
+{
+  InputParameters params = GeneralUserObject::validParams();
+
+  params.addParam&lt;std::vector&lt;std::string&gt;&gt;(
+      &quot;activation_functions&quot;, std::vector&lt;std::string&gt;({&quot;relu&quot;}), &quot;Test activation functions&quot;);
+
+  return params;
+}
+
+LibtorchArtificialNeuralNetTest::LibtorchArtificialNeuralNetTest(const InputParameters &amp; params)
+  : GeneralUserObject(params)
+{
+#ifdef LIBTORCH_ENABLED
+
+  torch::manual_seed(11);
+
+  // Define neurons per hidden layer: we will have two hidden layers with 4 neurons each
+  std::vector&lt;unsigned int&gt; num_neurons_per_layer({4, 4});
+  // Create the neural network with name &quot;test&quot;, number of input neurons = 3,
+  // number of output neurons = 1, and activation functions from the input file.
+  std::shared_ptr&lt;Moose::LibtorchArtificialNeuralNet&gt; nn =
+      std::make_shared&lt;Moose::LibtorchArtificialNeuralNet&gt;(
+          &quot;test&quot;,
+          3,
+          1,
+          num_neurons_per_layer,
+          getParam&lt;std::vector&lt;std::string&gt;&gt;(&quot;activation_functions&quot;));
+
+  // Create an Adam optimizer
+  torch::optim::Adam optimizer(nn-&gt;parameters(), torch::optim::AdamOptions(0.02));
+  // reset the gradients
+  optimizer.zero_grad();
+  // This is our test input
+  torch::Tensor input = at::ones({1, 3}, at::kDouble);
+  // This is our test output (we know the result)
+  torch::Tensor output = at::ones({1}, at::kDouble);
+  // This is our prediction for the test input
+  torch::Tensor prediction = nn-&gt;forward(input);
+  // We compute the loss
+  torch::Tensor loss = torch::mse_loss(prediction.reshape({prediction.size(0)}), output);
+  // We propagate the error back to compute gradient
+  loss.backward();
+  // We update the weights using the computed gradients
+  optimizer.step();
+
+  optimizer.zero_grad();
+  prediction = nn-&gt;forward(input);
+
+  _console &lt;&lt; &quot;My prediction: &quot; &lt;&lt; prediction &lt;&lt; std::endl;
+
+#endif
+}
+</code></pre></div><div class="modal-footer"><a class="modal-close btn-flat">Close</a></div></div></div><div class="col hide-on-med-and-down l2"><div class="toc-wrapper pin-top"><ul class="section table-of-contents"><li><a href="#e85e8fa9-6c1f-4a47-961b-4170fe266edc" class="tooltipped" data-position="left" data-tooltip="Overview">Overview</a></li><li><a href="#9d94a8a9-8a3e-4870-a14e-cb4b8942d44e" class="tooltipped" data-position="left" data-tooltip="Example usage">Example usage</a></li><li><a href="#6f74468f-161d-4a95-8b56-2decc6992b30" class="tooltipped" data-position="left" data-tooltip="References">References</a></li></ul></div></div></div></div></main></div></body><script type="text/javascript" src="../../contrib/materialize/materialize.min.js"></script><script type="text/javascript" src="../../contrib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="../../contrib/prism/prism.min.js"></script><script type="text/javascript" src="../../js/init.js"></script><script type="text/javascript" src="../../js/navigation.js"></script><script type="text/javascript" src="../../contrib/fuse/fuse.min.js"></script><script type="text/javascript" src="../../js/search_index.js"></script><script type="text/javascript" src="../../js/sqa_moose.js"></script>

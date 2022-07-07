@@ -1,0 +1,651 @@
+<!DOCTYPE html><head><meta charset="UTF-8"><title>Flashlight Point Sources | Stingray</title><link href="../../../contrib/materialize/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"></link><link href="../../../contrib/prism/prism.min.css" type="text/css" rel="stylesheet"></link><link href="../../../css/moose.css" type="text/css" rel="stylesheet"></link><link href="../../../css/devel_moose.css" type="text/css" rel="stylesheet"></link><link href="../../../css/alert_moose.css" type="text/css" rel="stylesheet"></link><link href="../../../css/content_moose.css" type="text/css" rel="stylesheet"></link><link href="../../../css/sqa_moose.css" type="text/css" rel="stylesheet"></link><link href="../../../css/civet_moose.css" type="text/css" rel="stylesheet"></link><link href="../../../contrib/katex/katex.min.css" type="text/css" rel="stylesheet"></link><link href="../../../css/katex_moose.css" type="text/css" rel="stylesheet"></link><script type="text/javascript" src="../../../contrib/jquery/jquery.min.js"></script><script type="text/javascript" src="../../../contrib/katex/katex.min.js"></script></head><body><div class="page-wrap"><header><nav><div class="nav-wrapper container"><a href="../../../index.html" class="left moose-logo hide-on-med-and-down" id="home-button">Stingray</a><a href="https://github.com/hugary1995/stingray" class="right"><img src="../../../media/framework/github-logo.png" class="github-mark"></img><img src="../../../media/framework/github-mark.png" class="github-logo"></img></a><ul class="right hide-on-med-and-down"><li><a href="../../../theory.html">Theory</a></li><li><a href="../../../implementation.html">Implementation</a></li><li><a href="../../../examples.html">Examples</a></li><li><a href="../../../stingray.html">Documentation</a></li></ul><a href="#" class="sidenav-trigger" data-target="d5e7ec63-4b8c-4bd7-ae3b-3cfb3cef8856"><i class="material-icons">menu</i></a><ul class="sidenav" id="d5e7ec63-4b8c-4bd7-ae3b-3cfb3cef8856"><li><a href="../../../theory.html">Theory</a></li><li><a href="../../../implementation.html">Implementation</a></li><li><a href="../../../examples.html">Examples</a></li><li><a href="../../../stingray.html">Documentation</a></li></ul><a href="#moose-search" class="modal-trigger"><i class="material-icons">search</i></a></div></nav><div class="modal modal-fixed-footer moose-search-modal" id="moose-search"><div class="modal-content container moose-search-modal-content"><div class="row"><div class="col l12"><div class="input-field"><input type_="text" onkeyup="mooseSearch()" placeholder="/index.md" id="moose-search-box"></input></div></div><div><div class="col s12" id="moose-search-results"></div></div></div></div><div class="modal-footer"><a href="#!" class="modal-close btn-flat">Close</a></div></div></header><main class="main"><div class="container"><div class="row"><div class="col hide-on-med-and-down l12"><nav class="breadcrumb-nav"><div class="nav-wrapper"><span class="breadcrumb">modules</span><a href=".." class="breadcrumb">ray_tracing</a><span class="breadcrumb">examples</span><a href="#" class="breadcrumb">flashlight_source</a></div></nav></div></div><div class="row"><div class="moose-content col s12 m12 l10"><section id="74996a10-6b8f-4021-99ab-000f151b5c42" data-section-level="1" data-section-text="Flashlight Point Sources"><h1 id="flashlight-point-sources">Flashlight Point Sources</h1><p>A &quot;flashlight&quot; point source is an anisotropic point source that emits in a cone about a direction <span class="moose-katex-inline-equation" id="moose-equation-bafcee3d-056c-4c42-898e-b52df1e24173"><script>var element = document.getElementById("moose-equation-bafcee3d-056c-4c42-898e-b52df1e24173");katex.render("\\hat{\\Omega}", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span>. The cone is defined by the vector along the cone axis and half of the opening angle in degrees.</p><p>The <a href="../index.html">Ray Tracing Module</a> is utilized for this example to discretize the angular integration. An angular quadrature is sampled within the cone and a <a href="../../../source/raytracing/Ray.html">Ray</a> generated for each direction. These <a href="../../../source/raytracing/Ray.html">Rays</a> contribute to PDEs solved on the domain via line sources.</p><section class="scrollspy" id="bac262d7-72b9-4ce2-b526-863373da132e" data-section-level="2" data-section-text="Example"><h2 id="example">Example</h2><p>Consider a problem on a two-dimensional mesh in the physical domain <span class="moose-katex-inline-equation" id="moose-equation-5513dd82-0e05-4b52-810c-0e4d8fd1c620"><script>var element = document.getElementById("moose-equation-5513dd82-0e05-4b52-810c-0e4d8fd1c620");katex.render("D \\in [0, 5] \\times [0, 5]", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span>. It will contain a reaction term formed by the <a href="../../../source/kernels/Reaction.html">Reaction / ADReaction</a> kernel and a diffusion term formed by the <a href="../../../source/kernels/Diffusion.html">Diffusion</a> kernel. The anisotropic point source located at <span class="moose-katex-inline-equation" id="moose-equation-a5eca510-8754-4b66-b8b7-ccbfffdb8c9c"><script>var element = document.getElementById("moose-equation-a5eca510-8754-4b66-b8b7-ccbfffdb8c9c");katex.render("(1, 1.5)", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span> emits a source in a cone <span class="moose-katex-inline-equation" id="moose-equation-e66aecbf-02e9-4a90-8585-7bb24e5f9363"><script>var element = document.getElementById("moose-equation-e66aecbf-02e9-4a90-8585-7bb24e5f9363");katex.render("2.5 \\degree", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span> about  <span class="moose-katex-inline-equation" id="moose-equation-40b04ed0-530f-48ff-9067-85bdc30a577a"><script>var element = document.getElementById("moose-equation-40b04ed0-530f-48ff-9067-85bdc30a577a");katex.render("\\hat{\\Omega} = (2 / \\sqrt{5}, 1 / \\sqrt{5})", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span>. The right boundary will specularly reflect the point source.</p><p>The input begins with the basic definition (the mesh, the <a href="../../../source/kernels/Reaction.html">Reaction / ADReaction</a> and <a href="../../../source/kernels/Diffusion.html">Diffusion</a> kernels, and an <a href="../../../syntax/Executioner/index.html">Executioner System</a>) as:</p><pre class="moose-pre" style="max-height:350px;"><code class="language-text">[Mesh]
+  [gmg]
+    type = GeneratedMeshGenerator
+    dim = 2
+    nx = 10
+    ny = 10
+    xmax = 5
+    ymax = 5
+  []
+[]
+
+[Variables/u]
+[]
+
+[Kernels]
+  [reaction]
+    type = Reaction
+    variable = u
+  []
+  [diffusion]
+    type = Diffusion
+    variable = u
+  []
+[]
+
+[Executioner]
+  type = Steady
+  solve_type = PJFNK
+  petsc_options_iname = &#x27;-pc_type -pc_hypre_type&#x27;
+  petsc_options_value = &#x27;hypre boomeramg&#x27;
+[]
+</code></pre><a class="moose-source-filename tooltipped modal-trigger" href="#ba4860f8-ad69-466d-97fb-c6096d5bd7be">(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</a><section id="dfabcfdb-d7f0-4529-8acd-b5c8384f6b7a" data-section-level="3" data-section-text="Defining the Study"><h3 id="defining-the-study">Defining the Study</h3><p>A <a href="../../../source/userobjects/ConeRayStudy.html">ConeRayStudy</a> is defined that generates and executes the rays within the cone:</p><pre class="moose-pre" style="max-height:350px;"><code class="language-text">[UserObjects/study]
+  type = ConeRayStudy
+
+  start_points = &#x27;1 1.5 0&#x27;
+  directions = &#x27;2 1 0&#x27;
+  half_cone_angles = 2.5
+  ray_data_name = weight
+
+  # Must be set with RayKernels that
+  # contribute to the residual
+  execute_on = PRE_KERNELS
+
+  # For outputting Rays
+  always_cache_traces = true
+[]
+</code></pre><a class="moose-source-filename tooltipped modal-trigger" href="#be587ee1-cf07-4283-a48a-c316ddd5ec3c">(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</a><p>A summary of the set parameters is as follows:</p><ul class="browser-default"><li><p><a href="#36ca46c1-72bf-4c04-a8de-5dbd757fec10" class="moose-modal-link modal-trigger">&quot;start_points&quot;</a> - The apex of the cone, defined as <span class="moose-katex-inline-equation" id="moose-equation-9996a431-472b-42e8-a8ad-e0d41e477134"><script>var element = document.getElementById("moose-equation-9996a431-472b-42e8-a8ad-e0d41e477134");katex.render("(1, 1.5)", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span> </p></li><li><p><a href="#b0479f9d-b9ca-45c8-88a4-a08d986f5874" class="moose-modal-link modal-trigger">&quot;directions&quot;</a> - The direction of the center line of the cone, defined as <span class="moose-katex-inline-equation" id="moose-equation-cbbe9404-0ae8-44d5-85c7-a9bda7762b08"><script>var element = document.getElementById("moose-equation-cbbe9404-0ae8-44d5-85c7-a9bda7762b08");katex.render("\\hat{\\Omega} = (2 / \\sqrt{5}, 1 / \\sqrt{5})", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span>. </p></li><li><p><a href="#db642cc6-fe7d-4bb8-a195-b14717a5968e" class="moose-modal-link modal-trigger">&quot;half_cone_angles&quot;</a> - Half of the opening angle of the cone in degrees, defined as <span class="moose-katex-inline-equation" id="moose-equation-9d89c226-e898-4e32-a429-929f551931de"><script>var element = document.getElementById("moose-equation-9d89c226-e898-4e32-a429-929f551931de");katex.render("2.5 \\degree", element, {displayMode:false,throwOnError:false,macros:{"\\bs":"\\boldsymbol{#1}","\\grad":"\\bs{\\nabla}","\\divergence":"\\grad \\cdot","\\norm":"\\left\\lVert#1\\right\\rVert","\\abs":"\\left\\lvert#1\\right\\rvert","\\diff":"\\text{ d}#1","\\bfa":"\\boldsymbol{a}","\\bfb":"\\boldsymbol{b}","\\bfc":"\\boldsymbol{c}","\\bfd":"\\boldsymbol{d}","\\bfe":"\\boldsymbol{e}","\\bff":"\\boldsymbol{f}","\\bfg":"\\boldsymbol{g}","\\bfh":"\\boldsymbol{h}","\\bfi":"\\boldsymbol{i}","\\bfj":"\\boldsymbol{j}","\\bfk":"\\boldsymbol{k}","\\bfl":"\\boldsymbol{l}","\\bfm":"\\boldsymbol{m}","\\bfn":"\\boldsymbol{n}","\\bfo":"\\boldsymbol{o}","\\bfp":"\\boldsymbol{p}","\\bfq":"\\boldsymbol{q}","\\bfr":"\\boldsymbol{r}","\\bfs":"\\boldsymbol{s}","\\bft":"\\boldsymbol{t}","\\bfu":"\\boldsymbol{u}","\\bfv":"\\boldsymbol{v}","\\bfw":"\\boldsymbol{w}","\\bfx":"\\boldsymbol{x}","\\bfy":"\\boldsymbol{y}","\\bfz":"\\boldsymbol{z}","\\bfA":"\\boldsymbol{A}","\\bfB":"\\boldsymbol{B}","\\bfC":"\\boldsymbol{C}","\\bfD":"\\boldsymbol{D}","\\bfE":"\\boldsymbol{E}","\\bfF":"\\boldsymbol{F}","\\bfG":"\\boldsymbol{G}","\\bfH":"\\boldsymbol{H}","\\bfI":"\\boldsymbol{I}","\\bfJ":"\\boldsymbol{J}","\\bfK":"\\boldsymbol{K}","\\bfL":"\\boldsymbol{L}","\\bfM":"\\boldsymbol{M}","\\bfN":"\\boldsymbol{N}","\\bfO":"\\boldsymbol{O}","\\bfP":"\\boldsymbol{P}","\\bfQ":"\\boldsymbol{Q}","\\bfR":"\\boldsymbol{R}","\\bfS":"\\boldsymbol{S}","\\bfT":"\\boldsymbol{T}","\\bfU":"\\boldsymbol{U}","\\bfV":"\\boldsymbol{V}","\\bfW":"\\boldsymbol{W}","\\bfX":"\\boldsymbol{X}","\\bfY":"\\boldsymbol{Y}","\\bfZ":"\\boldsymbol{Z}"}});</script></span> </p></li><li><p><a href="#7305ef77-5b35-4825-83ac-9128bde93381" class="moose-modal-link modal-trigger">&quot;ray_data_name&quot;</a> - A name for the data on the <a href="../../../source/raytracing/Ray.html">Ray</a> to be registered that stores the weight from the angular quadrature </p></li><li><p><a href="#0b057d2a-6388-49c5-ba3c-7a9d48aaa16d" class="moose-modal-link modal-trigger">&quot;execute_on&quot;</a> - Set to <code>PRE_KERNELS</code> so that the <a href="../../../source/raytracing/Ray.html">Rays</a> are executed with the residual evaluation </p></li><li><p><a href="#6c759459-501d-44d2-acc3-28dd991abaf0" class="moose-modal-link modal-trigger">&quot;always_cache_traces&quot;</a> - Enabled to cache information for outputting the <a href="../../../source/raytracing/Ray.html">Rays</a> in a mesh form (see <a href="../../../source/outputs/RayTracingMeshOutput.html">RayTracingMeshOutput</a>)</p></li></ul></section><section id="44781c60-c4d3-466a-ae31-194e87a07d23" data-section-level="3" data-section-text="Defining the RayBCs"><h3 id="defining-the-raybcs">Defining the RayBCs</h3><p><a href="../../../syntax/RayBCs/index.html">RayBCs</a> are objects that operate on <a href="../../../source/raytracing/Ray.html">Rays</a> that intersect a boundary. We require the following:</p><ul class="browser-default"><li><p>A <a href="../../../syntax/RayBCs/index.html">RayBC</a> that reflects the rays on the right boundary in a specular manner </p></li><li><p>A <a href="../../../syntax/RayBCs/index.html">RayBC</a> that ends the rays on the top boundary that are reflected off of the right boundary</p></li></ul><p>In specific, we will add a <a href="../../../source/raybcs/ReflectRayBC.html">ReflectRayBC</a> on the right boundary and a <a href="../../../source/raybcs/KillRayBC.html">KillRayBC</a> on the top boundary. These are implemented as follows:</p><pre class="moose-pre" style="max-height:350px;"><code class="language-text">[RayBCs]
+  [reflect]
+    type = ReflectRayBC
+    boundary = &#x27;right&#x27;
+  []
+  [kill_rest]
+    type = KillRayBC
+    boundary = &#x27;top&#x27;
+  []
+[]
+</code></pre><a class="moose-source-filename tooltipped modal-trigger" href="#311107fc-7ea5-47e2-9152-f7a44ea151e7">(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</a><p>At this point, it is important to note that it is not necessary to provide the <a href="#bc3e97dd-b676-4b52-a536-eea77e78f892" class="moose-modal-link modal-trigger">&quot;rays&quot;</a> parameter to any added <a href="../../../syntax/RayKernels/index.html">RayKernels</a> or <a href="../../../syntax/RayBCs/index.html">RayBCs</a>, unlike what was done in <a href="line_sources.html">Using Line Sources</a> or <a href="line_integrals.html">Computing Line Integrals</a>. This is because the <a href="../../../source/userobjects/ConeRayStudy.html">ConeRayStudy</a> does not have <a href="../../../source/raytracing/Ray.html">Ray</a> registration enabled (see <a href="../../../source/userobjects/RayTracingStudy.html#ray-registration">Ray Registration</a> for more information). <a href="../../../source/raytracing/Ray.html">Ray</a> registration requires that a name be associated with each <a href="../../../source/raytracing/Ray.html">Ray</a>. It is disabled in the <a href="../../../source/userobjects/ConeRayStudy.html">ConeRayStudy</a> because the large number of <a href="../../../source/raytracing/Ray.html">Rays</a> generated makes it unreasonable to name each one.</p></section><section id="04e88c69-cf9f-400f-87aa-b2439f5a238f" data-section-level="3" data-section-text="Defining the RayKernel"><h3 id="defining-the-raykernel">Defining the RayKernel</h3><p><a href="../../../syntax/RayKernels/index.html">RayKernels</a> are objects that are executed on the segments of the <a href="../../../source/raytracing/Ray.html">Rays</a>. In this case, each <a href="../../../source/raytracing/Ray.html">Ray</a> will act as a line source as it is traced. For this, we will add a <a href="../../../source/raykernels/LineSourceRayKernel.html">LineSourceRayKernel</a> as follows:</p><pre class="moose-pre" style="max-height:350px;"><code class="language-text">[RayKernels/line_source]
+  type = LineSourceRayKernel
+  variable = u
+
+  # Scale by the weights in the ConeRayStudy
+  ray_data_factor_names = weight
+[]
+</code></pre><a class="moose-source-filename tooltipped modal-trigger" href="#43e906fe-e2b0-4737-86a2-11dea6b2fe83">(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</a><p>Take note of the supplied parameter <a href="#b093c441-3d6d-49d8-a614-316da4fc460a" class="moose-modal-link modal-trigger">&quot;ray_data_factor_names&quot;</a>. Recall that within the defined <a href="../../../source/userobjects/ConeRayStudy.html">ConeRayStudy</a>, we supplied the parameter <a href="#b5c29581-8cd9-4010-bde4-6be2efdea27c" class="moose-modal-link modal-trigger">&quot;ray_data_name&quot;</a>, which is the <a href="../../../source/raytracing/Ray.html">Ray</a> data that will store the weights from the angular quadrature and the user defined scaling factors (if any). The <a href="#9e7285c5-135b-45a5-ad92-e9b0ce74c526" class="moose-modal-link modal-trigger">&quot;ray_data_factor_names&quot;</a> parameter in <a href="../../../source/raykernels/LineSourceRayKernel.html">LineSourceRayKernel</a> will scale the source by the given <a href="../../../source/raytracing/Ray.html">Ray</a> data, which effectively scales the line source term by the angular quadrature weights and the user defined scaling factors (if any).</p></section><section id="128788a7-d3c9-4e1b-90e1-5a4b310af2be" data-section-level="3" data-section-text="Result"><h3 id="result">Result</h3><p>The problem is ran with</p><pre class="moose-pre"><code class="language-text">
+./ray_tracing-opt -i test/tests/userobjects/cone_ray_study.i
+</code></pre><p>and the result (in <code>cone_ray_study_out.e</code>) is pictured below in <a href="#result">Figure 1</a>.</p><div class="card moose-float" id="result"><div class="card-content"><picture class="materialboxed moose-image"><img src="../../../large_media/ray_tracing/cone_ray_study_coarse_u.png"></img></picture><p class="moose-caption"><span class="moose-caption-heading">Figure 1: </span><span class="moose-caption-text" id="result">Result for the diffusion-reaction problem with a flashlight point source.</span></p></div></div></section><section id="095a3cd8-9ce6-47b6-826d-cebd7d41e665" data-section-level="3" data-section-text="Refined Result"><h3 id="refined-result">Refined Result</h3><p>Admittedly, the result in <a href="#result">Figure 1</a> is not particularly satisfying in a visual sense. We need more elements! Let&#x27;s take advantage of the <a href="../../../syntax/Adaptivity/index.html">Adaptivity System</a>. With this, take note of the Adaptivity block:</p><pre class="moose-pre" style="max-height:350px;"><code class="language-text">[Adaptivity]
+  steps = 0 # 6 for pretty pictures
+  marker = marker
+  initial_marker = marker
+  max_h_level = 6
+  [Indicators/indicator]
+    type = GradientJumpIndicator
+    variable = u
+  []
+  [Markers/marker]
+    type = ErrorFractionMarker
+    indicator = indicator
+    coarsen = 0.25
+    refine = 0.5
+  []
+[]
+</code></pre><a class="moose-source-filename tooltipped modal-trigger" href="#7d069ba7-9fb3-479d-8ad8-d4ba9f5f6f6c">(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</a><p>As in the input, the number of adaptivity steps is currently set to 0. We will set that to 6 via a command line argument and run again with:</p><pre class="moose-pre"><code class="language-text">
+mpiexec -n 4 ./ray_tracing-opt -i test/tests/userobjects/cone_ray_study.i Adaptivity/steps=6
+</code></pre><div class="row"><div class="col s12 m6 l6"><div class="card moose-float" id="adaptivity"><div class="card-content"><picture class="materialboxed moose-image"><img src="../../../large_media/ray_tracing/cone_ray_study_u.png"></img></picture><p class="moose-caption"><span class="moose-caption-heading">Figure 3: </span><span class="moose-caption-text" id="adaptivity">Refined result for the diffusion-reaction problem with a flashlight point source.</span></p></div></div></div><div class="col s12 m6 l6"><div class="card moose-float" id="adaptivity-meshed"><div class="card-content"><picture class="materialboxed moose-image"><img src="../../../large_media/ray_tracing/cone_ray_study_u_mesh.png"></img></picture><p class="moose-caption"><span class="moose-caption-heading">Figure 4: </span><span class="moose-caption-text" id="adaptivity-meshed">The result pictured in <a href="#adaptivity">Figure 3</a> with a mesh overlay.</span></p></div></div></div></div></section><section id="92c8bf1c-2cc6-4ed3-b814-c38f33027ea5" data-section-level="3" data-section-text="Result with Ray Overlay"><h3 id="result-with-ray-overlay">Result with Ray Overlay</h3><p>For a little more pretty-picture goodness, we will also output the generated <a href="../../../source/raytracing/Ray.html">Rays</a> using <a href="../../../source/outputs/RayTracingMeshOutput.html">RayTracingMeshOutput</a>.</p><p>Recall the <a href="#a605c084-e3da-43e4-a5cb-0b620f3d7978" class="moose-modal-link modal-trigger">&quot;always_cache_traces&quot;</a> parameter that was set to true for the <a href="../../../source/userobjects/ConeRayStudy.html">ConeRayStudy</a>. This was enabled so that the trace information could be cached for use in output. Take note of the Output block with the <a href="../../../source/outputs/RayTracingExodus.html">RayTracingExodus</a> object:</p><pre class="moose-pre" style="max-height:350px;"><code class="language-text">[Outputs]
+  exodus = true
+
+  [rays]
+    type = RayTracingExodus
+    study = study
+    execute_on = FINAL
+  []
+[]
+</code></pre><a class="moose-source-filename tooltipped modal-trigger" href="#1be9d39d-aa10-42e1-a7fd-2c3985a2a422">(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</a><p>The output file <code>cone_ray_study_rays.e</code> is also generated with the simulation. We will overlay this mesh on top of the original output with adaptivity to obtain what follows in <a href="#adaptivity-rays">Figure 2</a>.</p><div class="card moose-float" id="adaptivity-rays"><div class="card-content"><picture class="materialboxed moose-image"><img src="../../../large_media/ray_tracing/cone_ray_study_rays.png"></img></picture><p class="moose-caption"><span class="moose-caption-heading">Figure 2: </span><span class="moose-caption-text" id="adaptivity-rays">Result for the diffusion-reaction problem with a flashlight point source, with adaptivity, and with a <a href="../../../source/outputs/RayTracingExodus.html">RayTracingExodus</a> overlay.</span></p></div></div></section></section></section><div class="moose-modal modal" id="ba4860f8-ad69-466d-97fb-c6096d5bd7be"><div class="modal-content"><h4>(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</h4><pre class="moose-pre"><code class="language-text">[Mesh]
+  [gmg]
+    type = GeneratedMeshGenerator
+    dim = 2
+    nx = 10
+    ny = 10
+    xmax = 5
+    ymax = 5
+  []
+[]
+
+[Variables/u]
+[]
+
+[Kernels]
+  [reaction]
+    type = Reaction
+    variable = u
+  []
+  [diffusion]
+    type = Diffusion
+    variable = u
+  []
+[]
+
+[Executioner]
+  type = Steady
+  solve_type = PJFNK
+  petsc_options_iname = &#x27;-pc_type -pc_hypre_type&#x27;
+  petsc_options_value = &#x27;hypre boomeramg&#x27;
+[]
+
+[UserObjects/study]
+  type = ConeRayStudy
+
+  start_points = &#x27;1 1.5 0&#x27;
+  directions = &#x27;2 1 0&#x27;
+  half_cone_angles = 2.5
+  ray_data_name = weight
+
+  # Must be set with RayKernels that
+  # contribute to the residual
+  execute_on = PRE_KERNELS
+
+  # For outputting Rays
+  always_cache_traces = true
+[]
+
+[RayBCs]
+  [reflect]
+    type = ReflectRayBC
+    boundary = &#x27;right&#x27;
+  []
+  [kill_rest]
+    type = KillRayBC
+    boundary = &#x27;top&#x27;
+  []
+[]
+
+[RayKernels/line_source]
+  type = LineSourceRayKernel
+  variable = u
+
+  # Scale by the weights in the ConeRayStudy
+  ray_data_factor_names = weight
+[]
+
+[Outputs]
+  exodus = true
+
+  [rays]
+    type = RayTracingExodus
+    study = study
+    execute_on = FINAL
+  []
+[]
+
+[Adaptivity]
+  steps = 0 # 6 for pretty pictures
+  marker = marker
+  initial_marker = marker
+  max_h_level = 6
+  [Indicators/indicator]
+    type = GradientJumpIndicator
+    variable = u
+  []
+  [Markers/marker]
+    type = ErrorFractionMarker
+    indicator = indicator
+    coarsen = 0.25
+    refine = 0.5
+  []
+[]
+</code></pre></div><div class="modal-footer"><a class="modal-close btn-flat">Close</a></div></div><div class="moose-modal modal" id="be587ee1-cf07-4283-a48a-c316ddd5ec3c"><div class="modal-content"><h4>(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</h4><pre class="moose-pre"><code class="language-text">[Mesh]
+  [gmg]
+    type = GeneratedMeshGenerator
+    dim = 2
+    nx = 10
+    ny = 10
+    xmax = 5
+    ymax = 5
+  []
+[]
+
+[Variables/u]
+[]
+
+[Kernels]
+  [reaction]
+    type = Reaction
+    variable = u
+  []
+  [diffusion]
+    type = Diffusion
+    variable = u
+  []
+[]
+
+[Executioner]
+  type = Steady
+  solve_type = PJFNK
+  petsc_options_iname = &#x27;-pc_type -pc_hypre_type&#x27;
+  petsc_options_value = &#x27;hypre boomeramg&#x27;
+[]
+
+[UserObjects/study]
+  type = ConeRayStudy
+
+  start_points = &#x27;1 1.5 0&#x27;
+  directions = &#x27;2 1 0&#x27;
+  half_cone_angles = 2.5
+  ray_data_name = weight
+
+  # Must be set with RayKernels that
+  # contribute to the residual
+  execute_on = PRE_KERNELS
+
+  # For outputting Rays
+  always_cache_traces = true
+[]
+
+[RayBCs]
+  [reflect]
+    type = ReflectRayBC
+    boundary = &#x27;right&#x27;
+  []
+  [kill_rest]
+    type = KillRayBC
+    boundary = &#x27;top&#x27;
+  []
+[]
+
+[RayKernels/line_source]
+  type = LineSourceRayKernel
+  variable = u
+
+  # Scale by the weights in the ConeRayStudy
+  ray_data_factor_names = weight
+[]
+
+[Outputs]
+  exodus = true
+
+  [rays]
+    type = RayTracingExodus
+    study = study
+    execute_on = FINAL
+  []
+[]
+
+[Adaptivity]
+  steps = 0 # 6 for pretty pictures
+  marker = marker
+  initial_marker = marker
+  max_h_level = 6
+  [Indicators/indicator]
+    type = GradientJumpIndicator
+    variable = u
+  []
+  [Markers/marker]
+    type = ErrorFractionMarker
+    indicator = indicator
+    coarsen = 0.25
+    refine = 0.5
+  []
+[]
+</code></pre></div><div class="modal-footer"><a class="modal-close btn-flat">Close</a></div></div><div class="moose-modal modal" id="36ca46c1-72bf-4c04-a8de-5dbd757fec10"><div class="modal-content"><h4>start_points</h4><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>std::vector&lt;libMesh::Point&gt;</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>The point(s) of the cone(s).</p></div></div><div class="moose-modal modal" id="b0479f9d-b9ca-45c8-88a4-a08d986f5874"><div class="modal-content"><h4>directions</h4><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>std::vector&lt;libMesh::Point&gt;</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>The direcions(s) of the cone(s) (points down the center of each cone).</p></div></div><div class="moose-modal modal" id="db642cc6-fe7d-4bb8-a195-b14717a5968e"><div class="modal-content"><h4>half_cone_angles</h4><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>std::vector&lt;double&gt;</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>Angle of the half-cones in degrees (must be <= 90)</p></div></div><div class="moose-modal modal" id="7305ef77-5b35-4825-83ac-9128bde93381"><div class="modal-content"><h4>ray_data_name</h4><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>std::string</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>The name of the Ray data that the angular quadrature weights and factors will be filled into for properly weighting the line source per Ray.</p></div></div><div class="moose-modal modal" id="0b057d2a-6388-49c5-ba3c-7a9d48aaa16d"><div class="modal-content"><h4>execute_on</h4><p class="moose-parameter-description-default"><span>Default:</span>TIMESTEP_END</p><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>ExecFlagEnum</p><p class="moose-parameter-description-options"><span>Options:</span>NONE, INITIAL, LINEAR, NONLINEAR, TIMESTEP_END, TIMESTEP_BEGIN, FINAL, CUSTOM, PRE_KERNELS, ALWAYS</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>The list of flag(s) indicating when this object should be executed, the available options include NONE, INITIAL, LINEAR, NONLINEAR, TIMESTEP_END, TIMESTEP_BEGIN, FINAL, CUSTOM, ALWAYS.</p></div></div><div class="moose-modal modal" id="6c759459-501d-44d2-acc3-28dd991abaf0"><div class="modal-content"><h4>always_cache_traces</h4><p class="moose-parameter-description-default"><span>Default:</span>False</p><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>bool</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>Whether or not to cache the Ray traces on every execution, primarily for use in output. Warning: this can get expensive very quick with a large number of rays!</p></div></div><div class="moose-modal modal" id="311107fc-7ea5-47e2-9152-f7a44ea151e7"><div class="modal-content"><h4>(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</h4><pre class="moose-pre"><code class="language-text">[Mesh]
+  [gmg]
+    type = GeneratedMeshGenerator
+    dim = 2
+    nx = 10
+    ny = 10
+    xmax = 5
+    ymax = 5
+  []
+[]
+
+[Variables/u]
+[]
+
+[Kernels]
+  [reaction]
+    type = Reaction
+    variable = u
+  []
+  [diffusion]
+    type = Diffusion
+    variable = u
+  []
+[]
+
+[Executioner]
+  type = Steady
+  solve_type = PJFNK
+  petsc_options_iname = &#x27;-pc_type -pc_hypre_type&#x27;
+  petsc_options_value = &#x27;hypre boomeramg&#x27;
+[]
+
+[UserObjects/study]
+  type = ConeRayStudy
+
+  start_points = &#x27;1 1.5 0&#x27;
+  directions = &#x27;2 1 0&#x27;
+  half_cone_angles = 2.5
+  ray_data_name = weight
+
+  # Must be set with RayKernels that
+  # contribute to the residual
+  execute_on = PRE_KERNELS
+
+  # For outputting Rays
+  always_cache_traces = true
+[]
+
+[RayBCs]
+  [reflect]
+    type = ReflectRayBC
+    boundary = &#x27;right&#x27;
+  []
+  [kill_rest]
+    type = KillRayBC
+    boundary = &#x27;top&#x27;
+  []
+[]
+
+[RayKernels/line_source]
+  type = LineSourceRayKernel
+  variable = u
+
+  # Scale by the weights in the ConeRayStudy
+  ray_data_factor_names = weight
+[]
+
+[Outputs]
+  exodus = true
+
+  [rays]
+    type = RayTracingExodus
+    study = study
+    execute_on = FINAL
+  []
+[]
+
+[Adaptivity]
+  steps = 0 # 6 for pretty pictures
+  marker = marker
+  initial_marker = marker
+  max_h_level = 6
+  [Indicators/indicator]
+    type = GradientJumpIndicator
+    variable = u
+  []
+  [Markers/marker]
+    type = ErrorFractionMarker
+    indicator = indicator
+    coarsen = 0.25
+    refine = 0.5
+  []
+[]
+</code></pre></div><div class="modal-footer"><a class="modal-close btn-flat">Close</a></div></div><div class="moose-modal modal" id="bc3e97dd-b676-4b52-a536-eea77e78f892"><div class="modal-content"><h4>rays</h4><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>std::vector&lt;std::string&gt;</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>The name of the Rays associated with this object; only used if Ray registration is enabled within the study. If no Rays are supplied, this object will be applied to all Rays.</p></div></div><div class="moose-modal modal" id="43e906fe-e2b0-4737-86a2-11dea6b2fe83"><div class="modal-content"><h4>(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</h4><pre class="moose-pre"><code class="language-text">[Mesh]
+  [gmg]
+    type = GeneratedMeshGenerator
+    dim = 2
+    nx = 10
+    ny = 10
+    xmax = 5
+    ymax = 5
+  []
+[]
+
+[Variables/u]
+[]
+
+[Kernels]
+  [reaction]
+    type = Reaction
+    variable = u
+  []
+  [diffusion]
+    type = Diffusion
+    variable = u
+  []
+[]
+
+[Executioner]
+  type = Steady
+  solve_type = PJFNK
+  petsc_options_iname = &#x27;-pc_type -pc_hypre_type&#x27;
+  petsc_options_value = &#x27;hypre boomeramg&#x27;
+[]
+
+[UserObjects/study]
+  type = ConeRayStudy
+
+  start_points = &#x27;1 1.5 0&#x27;
+  directions = &#x27;2 1 0&#x27;
+  half_cone_angles = 2.5
+  ray_data_name = weight
+
+  # Must be set with RayKernels that
+  # contribute to the residual
+  execute_on = PRE_KERNELS
+
+  # For outputting Rays
+  always_cache_traces = true
+[]
+
+[RayBCs]
+  [reflect]
+    type = ReflectRayBC
+    boundary = &#x27;right&#x27;
+  []
+  [kill_rest]
+    type = KillRayBC
+    boundary = &#x27;top&#x27;
+  []
+[]
+
+[RayKernels/line_source]
+  type = LineSourceRayKernel
+  variable = u
+
+  # Scale by the weights in the ConeRayStudy
+  ray_data_factor_names = weight
+[]
+
+[Outputs]
+  exodus = true
+
+  [rays]
+    type = RayTracingExodus
+    study = study
+    execute_on = FINAL
+  []
+[]
+
+[Adaptivity]
+  steps = 0 # 6 for pretty pictures
+  marker = marker
+  initial_marker = marker
+  max_h_level = 6
+  [Indicators/indicator]
+    type = GradientJumpIndicator
+    variable = u
+  []
+  [Markers/marker]
+    type = ErrorFractionMarker
+    indicator = indicator
+    coarsen = 0.25
+    refine = 0.5
+  []
+[]
+</code></pre></div><div class="modal-footer"><a class="modal-close btn-flat">Close</a></div></div><div class="moose-modal modal" id="b093c441-3d6d-49d8-a614-316da4fc460a"><div class="modal-content"><h4>ray_data_factor_names</h4><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>std::vector&lt;std::string&gt;</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>The names of the Ray data to scale the source by (if any)</p></div></div><div class="moose-modal modal" id="b5c29581-8cd9-4010-bde4-6be2efdea27c"><div class="modal-content"><h4>ray_data_name</h4><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>std::string</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>The name of the Ray data that the angular quadrature weights and factors will be filled into for properly weighting the line source per Ray.</p></div></div><div class="moose-modal modal" id="9e7285c5-135b-45a5-ad92-e9b0ce74c526"><div class="modal-content"><h4>ray_data_factor_names</h4><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>std::vector&lt;std::string&gt;</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>The names of the Ray data to scale the source by (if any)</p></div></div><div class="moose-modal modal" id="7d069ba7-9fb3-479d-8ad8-d4ba9f5f6f6c"><div class="modal-content"><h4>(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</h4><pre class="moose-pre"><code class="language-text">[Mesh]
+  [gmg]
+    type = GeneratedMeshGenerator
+    dim = 2
+    nx = 10
+    ny = 10
+    xmax = 5
+    ymax = 5
+  []
+[]
+
+[Variables/u]
+[]
+
+[Kernels]
+  [reaction]
+    type = Reaction
+    variable = u
+  []
+  [diffusion]
+    type = Diffusion
+    variable = u
+  []
+[]
+
+[Executioner]
+  type = Steady
+  solve_type = PJFNK
+  petsc_options_iname = &#x27;-pc_type -pc_hypre_type&#x27;
+  petsc_options_value = &#x27;hypre boomeramg&#x27;
+[]
+
+[UserObjects/study]
+  type = ConeRayStudy
+
+  start_points = &#x27;1 1.5 0&#x27;
+  directions = &#x27;2 1 0&#x27;
+  half_cone_angles = 2.5
+  ray_data_name = weight
+
+  # Must be set with RayKernels that
+  # contribute to the residual
+  execute_on = PRE_KERNELS
+
+  # For outputting Rays
+  always_cache_traces = true
+[]
+
+[RayBCs]
+  [reflect]
+    type = ReflectRayBC
+    boundary = &#x27;right&#x27;
+  []
+  [kill_rest]
+    type = KillRayBC
+    boundary = &#x27;top&#x27;
+  []
+[]
+
+[RayKernels/line_source]
+  type = LineSourceRayKernel
+  variable = u
+
+  # Scale by the weights in the ConeRayStudy
+  ray_data_factor_names = weight
+[]
+
+[Outputs]
+  exodus = true
+
+  [rays]
+    type = RayTracingExodus
+    study = study
+    execute_on = FINAL
+  []
+[]
+
+[Adaptivity]
+  steps = 0 # 6 for pretty pictures
+  marker = marker
+  initial_marker = marker
+  max_h_level = 6
+  [Indicators/indicator]
+    type = GradientJumpIndicator
+    variable = u
+  []
+  [Markers/marker]
+    type = ErrorFractionMarker
+    indicator = indicator
+    coarsen = 0.25
+    refine = 0.5
+  []
+[]
+</code></pre></div><div class="modal-footer"><a class="modal-close btn-flat">Close</a></div></div><div class="moose-modal modal" id="a605c084-e3da-43e4-a5cb-0b620f3d7978"><div class="modal-content"><h4>always_cache_traces</h4><p class="moose-parameter-description-default"><span>Default:</span>False</p><p class="moose-parameter-description-cpptype"><span>C++ Type:</span>bool</p><p class="moose-parameter-description-controllable"><span>Controllable:</span>No</p><p class="moose-parameter-description"><span>Description:</span>Whether or not to cache the Ray traces on every execution, primarily for use in output. Warning: this can get expensive very quick with a large number of rays!</p></div></div><div class="moose-modal modal" id="1be9d39d-aa10-42e1-a7fd-2c3985a2a422"><div class="modal-content"><h4>(moose/modules/ray_tracing/test/tests/userobjects/cone_ray_study/cone_ray_study.i)</h4><pre class="moose-pre"><code class="language-text">[Mesh]
+  [gmg]
+    type = GeneratedMeshGenerator
+    dim = 2
+    nx = 10
+    ny = 10
+    xmax = 5
+    ymax = 5
+  []
+[]
+
+[Variables/u]
+[]
+
+[Kernels]
+  [reaction]
+    type = Reaction
+    variable = u
+  []
+  [diffusion]
+    type = Diffusion
+    variable = u
+  []
+[]
+
+[Executioner]
+  type = Steady
+  solve_type = PJFNK
+  petsc_options_iname = &#x27;-pc_type -pc_hypre_type&#x27;
+  petsc_options_value = &#x27;hypre boomeramg&#x27;
+[]
+
+[UserObjects/study]
+  type = ConeRayStudy
+
+  start_points = &#x27;1 1.5 0&#x27;
+  directions = &#x27;2 1 0&#x27;
+  half_cone_angles = 2.5
+  ray_data_name = weight
+
+  # Must be set with RayKernels that
+  # contribute to the residual
+  execute_on = PRE_KERNELS
+
+  # For outputting Rays
+  always_cache_traces = true
+[]
+
+[RayBCs]
+  [reflect]
+    type = ReflectRayBC
+    boundary = &#x27;right&#x27;
+  []
+  [kill_rest]
+    type = KillRayBC
+    boundary = &#x27;top&#x27;
+  []
+[]
+
+[RayKernels/line_source]
+  type = LineSourceRayKernel
+  variable = u
+
+  # Scale by the weights in the ConeRayStudy
+  ray_data_factor_names = weight
+[]
+
+[Outputs]
+  exodus = true
+
+  [rays]
+    type = RayTracingExodus
+    study = study
+    execute_on = FINAL
+  []
+[]
+
+[Adaptivity]
+  steps = 0 # 6 for pretty pictures
+  marker = marker
+  initial_marker = marker
+  max_h_level = 6
+  [Indicators/indicator]
+    type = GradientJumpIndicator
+    variable = u
+  []
+  [Markers/marker]
+    type = ErrorFractionMarker
+    indicator = indicator
+    coarsen = 0.25
+    refine = 0.5
+  []
+[]
+</code></pre></div><div class="modal-footer"><a class="modal-close btn-flat">Close</a></div></div></div><div class="col hide-on-med-and-down l2"><div class="toc-wrapper pin-top"><ul class="section table-of-contents"><li><a href="#bac262d7-72b9-4ce2-b526-863373da132e" class="tooltipped" data-position="left" data-tooltip="Example">Example</a></li></ul></div></div></div></div></main></div></body><script type="text/javascript" src="../../../contrib/materialize/materialize.min.js"></script><script type="text/javascript" src="../../../contrib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="../../../contrib/prism/prism.min.js"></script><script type="text/javascript" src="../../../js/init.js"></script><script type="text/javascript" src="../../../js/navigation.js"></script><script type="text/javascript" src="../../../contrib/fuse/fuse.min.js"></script><script type="text/javascript" src="../../../js/search_index.js"></script><script type="text/javascript" src="../../../js/sqa_moose.js"></script>
