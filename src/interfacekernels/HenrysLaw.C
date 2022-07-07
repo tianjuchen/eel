@@ -36,7 +36,7 @@ HenrysLaw::computeQpResidual(Moose::DGResidualType type)
     diff = _u[_qp] - _H * _neighbor_value[_qp];
   else if (_current_elem->subdomain_id() == _to_subdomain_id &&
            _neighbor_elem->subdomain_id() == _from_subdomain_id)
-    diff = _H * _neighbor_value[_qp] - _u[_qp];
+    diff = _neighbor_value[_qp] - (2 - _H) * _u[_qp];
   else
     mooseError("Internal error");
 
